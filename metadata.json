@@ -1,0 +1,5 @@
+{
+  "name": "SPEEDNOW",
+  "description": "Calcula a velocidade de uma bola a partir de um vídeo gravado pelo usuário.",
+  "requestFramePermissions": ["camera"]
+}
