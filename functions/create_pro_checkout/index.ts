@@ -42,6 +42,7 @@ Deno.serve(async (req: Request) => {
         }
       ],
       payer: { email },
+      external_reference: String(user_id),
       metadata: { user_id: String(user_id), type: 'pro' },
       notification_url: notificationUrl,
       payment_methods: {

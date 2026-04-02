@@ -54,14 +54,14 @@ serve(async (req) => {
     }
 
     const metadata = payment.metadata || {}
-    const userId = metadata.user_id
-    const type = metadata.type
-    const creditsAdded = metadata.credits || 0
-    const amount = payment.transaction_amount
+    const userId = payment.external_reference || metadata.user_id
+    const type = metadata.type || (metadata.credits ? 'credits' : 'pro') 
+    const creditsAdded = Number(metadata.credits || 0)
+    const amount = Number(payment.transaction_amount || 0)
 
     if (!userId) {
-      console.error('No user_id in metadata', payment)
-      return new Response('Missing user_id in payment metadata', { status: 200 })
+      console.error('No user_id found in payment:', payment)
+      return new Response('Missing user_id in payment data', { status: 200 })
     }
 
     // Initialize Supabase Admin Client
@@ -84,9 +84,9 @@ serve(async (req) => {
     const { error: insertError } = await supabase
       .from('payments')
       .insert({
-        id: eventId,
-        user_id: userId,
-        type: type,
+        id: String(eventId),
+        user_id: String(userId),
+        type: String(type),
         credits_added: creditsAdded,
         amount: amount,
         status: 'approved'
@@ -142,8 +142,8 @@ serve(async (req) => {
 
     return new Response('OK', { status: 200 })
 
-  } catch (error) {
+  } catch (error: any) {
     console.error('Webhook error:', error)
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 })
+    return new Response(JSON.stringify({ error: String(error.message || error) }), { status: 500 })
   }
 })

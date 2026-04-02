@@ -42,7 +42,8 @@ Deno.serve(async (req: Request) => {
         }
       ],
       payer: { email },
-      metadata: { user_id: String(user_id), type: 'credits', credits: '3' },
+      external_reference: String(user_id),
+      metadata: { user_id: String(user_id), type: 'credits', credits: 3 },
       notification_url: notificationUrl,
       payment_methods: {
         excluded_payment_types: [
