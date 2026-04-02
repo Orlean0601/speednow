@@ -34,12 +34,8 @@ export default function Home() {
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/10 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/3 pointer-events-none"></div>
 
       <header className="p-6 flex items-center justify-between relative z-10">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
-            <div className="w-2 h-2 rounded-full bg-cyan-400/70"></div>
-            <div className="w-2 h-2 rounded-full bg-cyan-400/40"></div>
-          </div>
+        <div className="flex items-center gap-3">
+          <img src="/logo.png" alt="SpeedNow" className="w-10 h-10 object-contain drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]" />
           <h1 className="text-xl font-bold uppercase tracking-wider text-white">SPEEDNOW</h1>
         </div>
         <div className="flex items-center gap-3">

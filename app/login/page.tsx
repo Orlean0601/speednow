@@ -61,15 +61,13 @@ export default function LoginPage() {
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md relative z-10"
       >
-        <div className="mb-8 text-center text-white">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
-              <div className="w-2 h-2 rounded-full bg-cyan-400/70"></div>
-              <div className="w-2 h-2 rounded-full bg-cyan-400/40"></div>
-            </div>
-            <h1 className="text-3xl font-bold uppercase tracking-wider text-white">SPEEDNOW</h1>
-          </div>
+        <div className="mb-8 text-center text-white flex flex-col items-center">
+          <img 
+            src="/logo.png" 
+            alt="SpeedNow" 
+            className="w-28 h-28 object-contain mb-4 drop-shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:scale-105 transition-transform" 
+          />
+          <h1 className="text-2xl font-bold uppercase tracking-wider text-white mb-2">SPEEDNOW</h1>
           <p className="text-cyan-100/60">Sua plataforma de análise de velocidade</p>
         </div>
 
