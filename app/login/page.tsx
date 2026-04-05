@@ -37,6 +37,7 @@ export default function LoginPage() {
             data: {
               name,
             },
+            emailRedirectTo: `${location.origin}/auth/confirm`,
           },
         })
         if (error) throw error
