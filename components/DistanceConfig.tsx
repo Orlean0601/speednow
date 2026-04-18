@@ -26,41 +26,12 @@ export function DistanceConfig({ distances, onChange, onNext }: Props) {
         <p className="text-cyan-100/70 text-sm mt-2">Defina as distâncias para o cálculo da velocidade</p>
       </div>
 
-      <div className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 space-y-5">
+      <div className="bg-white/5 backdrop-blur-md rounded-3xl border border-divide/10 p-6 space-y-5 border-white/10 shadow-lg shadow-black/20">
         <div className="flex items-center gap-3 mb-2">
-          <div className="bg-cyan-500/20 p-2.5 rounded-full">
-            <Camera className="w-5 h-5 text-cyan-400" />
+          <div className="bg-cyan-500/20 p-3 rounded-full">
+            <Target className="w-6 h-6 text-cyan-400" />
           </div>
-          <h3 className="font-semibold text-white">Câmera até Atacante</h3>
-        </div>
-        
-        <div className="flex gap-3">
-          <input
-            type="number"
-            min="0"
-            step="0.1"
-            value={distances.cameraToAttacker || ''}
-            onChange={(e) => updateField('cameraToAttacker', parseFloat(e.target.value) || 0)}
-            placeholder="Ex: 5"
-            className="flex-1 w-full bg-white/10 border border-white/20 text-white placeholder:text-white/30 rounded-2xl px-4 py-3 focus:ring-2 focus:ring-cyan-400 outline-none transition-all"
-          />
-          <select
-            value={distances.unit1}
-            onChange={(e) => updateField('unit1', e.target.value as DistanceUnit)}
-            className="bg-[#1A2035] border border-white/20 text-white rounded-2xl px-4 py-3 focus:ring-2 focus:ring-cyan-400 outline-none"
-          >
-            <option value="meters">Metros</option>
-            <option value="steps">Passos</option>
-          </select>
-        </div>
-      </div>
-
-      <div className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 p-6 space-y-5">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="bg-blue-500/20 p-2.5 rounded-full">
-            <Target className="w-5 h-5 text-blue-400" />
-          </div>
-          <h3 className="font-semibold text-white">Atacante até Alvo <span className="text-cyan-400">*</span></h3>
+          <h3 className="text-lg font-semibold text-white">Atacante até Alvo</h3>
         </div>
         
         <div className="flex gap-3">
