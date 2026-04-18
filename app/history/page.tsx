@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { ArrowLeft, Calendar, Activity, Clock } from 'lucide-react'
+import { ArrowLeft, Calendar, Activity, Clock, Trash2 } from 'lucide-react'
 
 interface Measurement {
   id: string
@@ -49,6 +49,24 @@ export default function HistoryPage() {
     }
   }
 
+  const deleteMeasurement = async (id: string) => {
+    if (!confirm('Deseja realmente apagar esta medição?')) return
+
+    try {
+      const { error } = await supabase
+        .from('measurements')
+        .delete()
+        .eq('id', id)
+
+      if (error) throw error
+      
+      setTests(prev => prev.filter(t => t.id !== id))
+    } catch (err) {
+      console.error(err)
+      alert('Erro ao apagar a medição.')
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#1A2035] font-sans pb-12 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
@@ -82,7 +100,9 @@ export default function HistoryPage() {
               <div key={test.id} className="bg-white/5 backdrop-blur-md rounded-3xl p-5 border border-white/10 flex flex-col gap-3 transition-all hover:bg-white/10">
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="font-bold text-white">{test.result.name || 'Teste sem nome'}</h3>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-bold text-white">{test.result.name || 'Teste sem nome'}</h3>
+                    </div>
                     <div className="flex items-center gap-1 text-xs text-cyan-100/60 mt-1">
                       <Calendar className="w-3 h-3" />
                       {new Date(test.created_at).toLocaleDateString()}
@@ -95,15 +115,24 @@ export default function HistoryPage() {
                     <span className="text-xs font-bold text-cyan-400/50 ml-1">km/h</span>
                   </div>
                 </div>
-                <div className="flex gap-4 border-t border-white/10 pt-3">
-                  <div className="flex items-center gap-1 text-xs text-white/70">
-                    <Activity className="w-4 h-4 text-cyan-400/50" />
-                    {test.result.speedMs.toFixed(1)} m/s
+                <div className="flex justify-between items-center border-t border-white/10 pt-3 mt-3">
+                  <div className="flex gap-4">
+                    <div className="flex items-center gap-1 text-xs text-white/70">
+                      <Activity className="w-4 h-4 text-cyan-400/50" />
+                      {test.result.speedMs.toFixed(1)} m/s
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-white/70">
+                      <Clock className="w-4 h-4 text-cyan-400/50" />
+                      {test.result.timeSeconds.toFixed(2)} s
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-white/70">
-                    <Clock className="w-4 h-4 text-cyan-400/50" />
-                    {test.result.timeSeconds.toFixed(2)} s
-                  </div>
+                  <button 
+                    onClick={() => deleteMeasurement(test.id)}
+                    className="p-2 text-white/40 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-all"
+                    title="Apagar medição"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
             ))}
